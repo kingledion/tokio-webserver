@@ -1,4 +1,3 @@
-
 use hyper::{Body, Request, Response, Method, StatusCode};
 
 pub async fn handler(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {

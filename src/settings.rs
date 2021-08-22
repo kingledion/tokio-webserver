@@ -31,15 +31,24 @@ impl From<&str> for ENV {
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Server {
-    pub port: u16
+    pub port: u16,
     // for some reason this can't be read from the toml file?
     // TODO: error catching to allow part of the env variables to be bound; or, optional bindings
-    //pub hostname: String,
+    pub hostname: String,
 }
+
+#[derive(Debug, Deserialize, Clone)]
+pub struct Repository {
+    pub db_host: String,
+    pub db_user: String,
+    pub db_pass: String,
+}
+
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Settings {
     pub server: Server,
+    pub repository: Repository,
     pub env: ENV,
 }
 

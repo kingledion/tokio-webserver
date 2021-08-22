@@ -1096,6 +1096,7 @@ dependencies = [
  "futures",
  "lazy_static",
  "serde 1.0.127",
+ "serde_json",
  "tokio",
  "warp",
 ]
