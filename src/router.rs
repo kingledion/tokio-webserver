@@ -1,9 +1,8 @@
 //use super::product;
 use warp::Filter;
-//use crate::data;
+use crate::data;
 
-pub fn router(repo: String) ->
-//pub fn router(repo: data::Repository) ->
+pub fn router(repo: data::Repository) ->
     impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
         get_test()
     }
