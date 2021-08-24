@@ -40,6 +40,7 @@ pub struct Server {
 #[derive(Debug, Deserialize, Clone)]
 pub struct Repository {
     pub db_host: String,
+    pub db_port: u16,
     pub db_user: String,
     pub db_pass: String,
 }

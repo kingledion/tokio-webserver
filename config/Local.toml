@@ -4,5 +4,6 @@ hostname = "127.0.0.1"
 
 [repository]
 db_host = "127.0.0.1"
+db_port = "5984"
 db_user = "admin"
-db_pass = "dbpass"
+db_pass = "password"

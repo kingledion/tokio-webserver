@@ -2,10 +2,11 @@
 extern crate lazy_static;
 
 mod router;
-//mod product; 
+mod product; 
 mod settings;
 mod data;
 mod model;
+mod namer;
 
 lazy_static! {
     static ref CONFIG: settings::Settings = settings::Settings::new().expect("config loading");
@@ -15,9 +16,16 @@ lazy_static! {
 #[tokio::main]
 async fn main() {
 
-    let repo = data::Repository::NewRepository(&CONFIG.repository.db_host, &CONFIG.repository.db_user, &CONFIG.repository.db_pass);
+    let db_path = format!("http://{}:{}", CONFIG.repository.db_host, CONFIG.repository.db_port);
+    let repo = data::Repository::new(&db_path, &CONFIG.repository.db_user, &CONFIG.repository.db_pass);
 
-    let api = router::router(repo);
+    let namer = match namer::Client::new() {
+        Ok(n) => n,
+        Err(e) => panic!("Failed to start client: {}", e)
+    };
+
+
+    let api = router::router(repo, namer);
 
     warp::serve(api).run(([127, 0, 0, 1], CONFIG.server.port)).await;
     
