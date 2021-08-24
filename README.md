@@ -15,11 +15,13 @@ The product database name must be the same as the name set in `src/data.rs` as `
 
 ### Build and run the rust executable
  
-Note that this package will not compile with rustc version 1.54 due to a [reported linker issue](https://github.com/rust-lang/rust/issues/88246). Install version 1.53 with `rustup toolchain install 1.53`. You can then use v1.53 for this package only with `rustup override set 1.53`. See the current version in use for a given directory, use `rustup show` (or you can simply do `rustc --version`)
+Note that this package will not compile with rustc version 1.54 due to a [reported linker issue](https://github.com/rust-lang/rust/issues/88246). Install version 1.53 with `rustup toolchain install 1.53`. You can then use v1.53 for this package only with `rustup override set 1.53`. See the current version in use for a given directory, use `rustup show` (or you can simply do `rustc --version`).
+
+I never got around to injecting the settings through environmental variables, so you must manually set the COUCHDB_USER and COUCHDB_PASSWORD via `./config/Local.toml`. Don't commit your passwords! 
 
 Buid and run locally with `cargo run`.
 
-There exists a docker image, but I never finished implementing settings loaded from injected environmental variables, so the docker image does not work. The docker image is intended to be used with K3S pushing the contents of the `./config/Local.tomal` into the deployment yaml file. 
+There exists a docker image, but since I never finished implementing settings loaded from environmental variables the docker image does not work. The docker image is intended to be used with K3S pushing the contents of the `./config/Local.tomal` into the deployment yaml file. 
 
 ## How to use
 
