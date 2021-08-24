@@ -24,7 +24,7 @@ impl Product {
 
 #[derive(Debug, Serialize, Deserialize, Clone,  CouchDocument)]
 pub struct Amount {
-    #[serde(skip_serializing_if = "String::is_empty")]
+    #[serde(skip_serializing_if = "String::is_empty", skip_deserializing)]
     pub _id: DocumentId,
     #[serde(skip_serializing_if = "String::is_empty", skip_deserializing)]
     pub _rev: String,

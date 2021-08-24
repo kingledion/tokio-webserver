@@ -27,7 +27,7 @@ pub fn get_product(repo: data::Repository, nameclient: namer::Client) -> impl Fi
 }
 
 pub fn write_product(repo: data::Repository) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
-    warp::path!("product")
+    warp::path!("product" / u32)
         .and(warp::put())
         .and(amount_body())
         .and(with_repo(repo))

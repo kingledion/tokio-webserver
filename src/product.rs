@@ -26,7 +26,8 @@ pub async fn get_product(id: u32, repo: data::Repository, nameclient: namer::Cli
 
     match result {
         Ok(price) => {
-            Ok(warp::reply::json(&model::Product::new(id.to_string(), name.expect("Unexpected error resolving name"), price)))
+            let product = model::Product::new(id.to_string(), name.expect("Unexpected error resolving name"), price);
+            Ok(warp::reply::json(&product))
         }
         Err(e) => {
             // add proper logging here
@@ -38,11 +39,17 @@ pub async fn get_product(id: u32, repo: data::Repository, nameclient: namer::Cli
     }
 }
 
-pub async fn write_product(product: model::Amount, repo: data::Repository) -> Result<impl warp::reply::Reply, Infallible> {
-    let result = repo.write_product(product).await;
+pub async fn write_product(id: u32, price: model::Amount, repo: data::Repository) -> Result<impl warp::reply::Reply, Infallible> {
+
+    let mut product = price.clone();
+    product._id = id.to_string();
+
+    let result = repo.write_product(product.clone()).await;
 
     match result {
-        Ok(product) => Ok(warp::reply::json(&product)),
+        Ok(_) => {
+            Ok(warp::reply::json(&product))
+        }
         Err(e) => {
             // add proper logging here
             println!("Error on get {}", e);
