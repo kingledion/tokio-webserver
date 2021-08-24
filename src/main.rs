@@ -16,6 +16,7 @@ lazy_static! {
 #[tokio::main]
 async fn main() {
 
+
     let db_path = format!("http://{}:{}", CONFIG.repository.db_host, CONFIG.repository.db_port);
     let repo = data::Repository::new(&db_path, &CONFIG.repository.db_user, &CONFIG.repository.db_pass);
 
@@ -23,7 +24,6 @@ async fn main() {
         Ok(n) => n,
         Err(e) => panic!("Failed to start client: {}", e)
     };
-
 
     let api = router::router(repo, namer);
 

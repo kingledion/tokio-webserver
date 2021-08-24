@@ -21,11 +21,11 @@ pub async fn get_product(id: u32, repo: data::Repository, nameclient: namer::Cli
         return Ok(warp::reply::json(&format!("Unable to retrieve products")))
     }
 
+
     let result = repo.get_product(id.to_string()).await;
 
     match result {
         Ok(price) => {
-
             Ok(warp::reply::json(&model::Product::new(id.to_string(), name.expect("Unexpected error resolving name"), price)))
         }
         Err(e) => {

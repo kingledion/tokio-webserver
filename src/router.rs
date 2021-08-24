@@ -18,8 +18,6 @@ pub fn get_test() -> impl Filter<Extract = impl Reply, Error = Rejection> + Clon
 }
 
 pub fn get_product(repo: data::Repository, nameclient: namer::Client) -> impl Filter<Extract = impl Reply, Error = Rejection> + Clone {
-    println!("Triggered get_product route");
-
     warp::path!("product" / u32)
         .and(warp::get())
         .and(with_repo(repo))

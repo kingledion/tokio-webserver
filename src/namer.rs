@@ -22,22 +22,15 @@ impl Client {
     }
 
     pub async fn get_name(&self, _id: String) -> Result<String, ClientError> {
-
-        print!("Getting a new name");
-
         let str = self.client.get("http://random-word-api.herokuapp.com/word?number=2")
             .send()
             .await?
             .text()
-            .await?;
-        
-        let clean_str = str
-            .replace(r#"[]""#, "")
+            .await?
+            .replace(&['[', ']', '"'][..], "")
             .replace(",", " ");
 
-        print!("Clean string {}", clean_str);
-
-        Ok(clean_str)
+        Ok(str)
     }
 }
 
