@@ -1581,6 +1581,7 @@ version = "0.0.1"
 dependencies = [
  "config",
  "couch_rs",
+ "http",
  "lazy_static",
  "reqwest",
  "serde 1.0.127",

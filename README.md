@@ -25,7 +25,7 @@ A test endpoint to validate the operation of the executable.
 
 ### GET `/product/{product-id}`
 
-Returns the name and price of the product with the given product-id. Example:
+Returns the name and price of the product with the given product-id with http code `200`. Example:
 ```
 {
   "id": "125",
@@ -36,6 +36,10 @@ Returns the name and price of the product with the given product-id. Example:
 ```
 
 To emulate a call to external HTTP resource, the name is generated from a random number generator. Therefore, it is not consistent from call to call. The price information is retrieved from a CouchDB instance and is consistent.
+
+If the item cannot be found, will return an http code `400` with error message.
+
+If either the name service is unavailable or any error other than not found is returned from the database, this function will return an http code `500`.
 
 ### PUT `/product/{product-id}`
 
@@ -55,3 +59,6 @@ The returned value is the price of the good with the attached id. An example ret
   "currency_code": "USD"
 }
 ```
+This operation will work the same whether or not the price corresponding to this id exists or not. 
+
+Any error returned from the database will return an http code `500`.
