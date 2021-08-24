@@ -20,7 +20,7 @@ impl Repository{
     pub async fn write_product(&self, product: model::Amount) -> Result<(), RepositoryError> {
         let db = self.client.db(PRODUCT_DB).await?;
         let mut val = to_value(product)?;
-        db.upsert(&mut val).await;
+        db.upsert(&mut val).await?;
 
         Ok(())
     }
