@@ -73,8 +73,8 @@ Any error returned from the database will return an http code `500`.
 
 To productionalize this webapp, if I was working on this for anothe week, the following would need to be created:
  - Mocking the database and name client calls (several library options)
- - Testing the webapp using wiremock (`https://docs.rs/wiremock/0.5.6/wiremock/`)
+ - Testing the webapp using wiremock (https://docs.rs/wiremock/0.5.6/wiremock/)
  - Load the config optionally from environment (for cluster deployments) or local toml file (as currently implemented)
  - Validate the docker image works with k8s framework 
- - Developing a logging system based on cluster environment and add warp logging (https://docs.rs/warp/0.1.0/warp/filters/log/index.html)
+ - Developing a logging system based on cluster environment and add warp logging (https://docs.rs/warp/0.3.1/warp/filters/log/index.html)
  - Use github actions to implement deploy pipeline
