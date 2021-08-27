@@ -7,3 +7,7 @@ db_host = "127.0.0.1"
 db_port = "5984"
 db_user = "admin"
 db_pass = "password"
+
+[nameservice]
+getpath = "https://redsky.target.com/v3/pdp/tcin/"
+getargs = "key=candidate"

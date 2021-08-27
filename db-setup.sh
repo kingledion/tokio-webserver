@@ -25,8 +25,8 @@ curl -X POST http://$1:$2@localhost:5984/product/_bulk_docs \
     -d '{
         "docs": [
             {
-                "_id": "123",
-                "value": 1235,
+                "_id": "13860428",
+                "value": 799,
                 "currency_code": "USD"
             }
         ]}'

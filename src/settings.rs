@@ -45,11 +45,18 @@ pub struct Repository {
     pub db_pass: String,
 }
 
+#[derive(Debug, Deserialize, Clone)]
+pub struct Nameservice {
+    pub getpath: String,
+    pub getargs: String,
+}
+
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Settings {
     pub server: Server,
     pub repository: Repository,
+    pub nameservice: Nameservice,
     pub env: ENV,
 }
 
