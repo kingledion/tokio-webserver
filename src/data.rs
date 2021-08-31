@@ -2,8 +2,15 @@ use thiserror::Error;
 use serde_json::{to_value};
 use warp::http::StatusCode;
 use super::model;
+use async_trait::async_trait;
 
 const PRODUCT_DB: &str = "product";
+
+#[async_trait]
+pub trait Repo : Send + Sync + Clone + 'static {
+    async fn write_product(&self, product: model::Amount) -> Result<(), RepositoryError>;
+    async fn get_product(&self, product_id: String) -> Result<model::Amount, RepositoryError>;
+}
 
 #[derive(Debug, Clone)]
 pub struct Repository {
@@ -16,8 +23,11 @@ impl Repository{
         let c = couch_rs::Client::new(dbhost, dbuser, dbpass).unwrap(); 
         Repository{client: c}
     }
+}
 
-    pub async fn write_product(&self, product: model::Amount) -> Result<(), RepositoryError> {
+#[async_trait]
+impl Repo for Repository {
+    async fn write_product(&self, product: model::Amount) -> Result<(), RepositoryError> {
         let db = self.client.db(PRODUCT_DB).await?;
         let mut val = to_value(product)?;
         db.upsert(&mut val).await?;
@@ -25,7 +35,7 @@ impl Repository{
         Ok(())
     }
 
-    pub async fn get_product(&self, product_id: String) -> Result<model::Amount, RepositoryError> {
+    async fn get_product(&self, product_id: String) -> Result<model::Amount, RepositoryError> {
         let db = self.client.db(PRODUCT_DB).await?;
         let res = db.get(&product_id).await;
 
